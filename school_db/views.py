@@ -299,11 +299,19 @@ VALUES ('Kyle', 'Harwood', 2022, 3.0)
 def problem_six(request):
     
     # Make sure to set this equal to the primary key of the row you just created!
-    student_id = 11
+    
 
+  Student.objects.filter(id = 11).update(gpa = 3.5)
 
+  students = Student.objects.filter(id = 11)
 
-    return complete(request)
+  for student in students:
+
+    print(f'Student ID: {student.id}')
+    print(f'Full Name: {student.first_name} {student.last_name}')
+    print(f'GPA: {student.gpa}')
+
+  return complete(request)
 
 
 # Supporting Query Method Documentation:
