@@ -148,11 +148,17 @@ SELECT `school_db_instructor`.`id`,
 # (Do not hard code his name in the print)
 def problem_three(request):
 
-  instructors = Instructor.objects.filter(hire_date__lt='2010-01-01').order_by('-hire_date')
+  instructors = Instructor.objects.filter(id = 2)
+
+  courses = Course.objects.filter(instructor_id = 2)
 
   for instructor in instructors:
 
     print(f'Full Name: {instructor.first_name} {instructor.last_name}, Hire Date: {instructor.hire_date}')
+
+  for course in courses:
+
+    print(course.name)
 
   return complete(request)
 
