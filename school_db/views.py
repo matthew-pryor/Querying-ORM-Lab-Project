@@ -12,9 +12,12 @@ from .const_data import view_information
 # Example solution:
 def example_solution(request):
 
-    
+  students = Student.objects.all()
 
-    return complete(request)
+  for student in students:
+      print(f'First Name: {student.first_name} Last Name: {student.last_name} GPA: {student.gpa}')
+
+  return complete(request)
 
 
 # Supporting Query Method Documentation:
