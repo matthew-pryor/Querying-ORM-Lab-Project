@@ -1,3 +1,5 @@
+from itertools import count
+from turtle import update
 from django.shortcuts import render
 from django.db.models import Count
 from django.core.exceptions import ObjectDoesNotExist
@@ -105,6 +107,9 @@ def problem_two(request):
 
   instructors = Instructor.objects.filter(hire_date__lt='2010-01-01').order_by('-hire_date')
 
+  for instructor in instructors:
+
+    print(f'Full Name: {instructor.first_name} {instructor.last_name}, Hire Date: {instructor.hire_date}')
 
   return complete(request)
 
@@ -150,11 +155,11 @@ def problem_three(request):
 
   for instructor in instructors:
 
-    print(f'Full Name: {instructor.first_name} {instructor.last_name}, Hire Date: {instructor.hire_date}')
+    print(f'Full Name: {instructor.first_name} {instructor.last_name}')
 
   for course in courses:
 
-    print(course.name)
+    print(f'Courses Taught: {course.name}')
 
   return complete(request)
 
@@ -202,9 +207,20 @@ SELECT `school_db_instructor`.`id`,
 # Get the count of students, courses, and instructors and print them in the terminal
 def problem_four(request):
 
+  students = Student.objects.all().count()
+
+  instructors = Instructor.objects.all().count()
+
+  courses = Course.objects.all().count()
+
+  print(instructors)
+
+  print(courses)
+
+  print(students)
 
 
-    return complete(request)
+  return complete(request)
 
 
 # Supporting Query Method Documentation:
@@ -248,9 +264,9 @@ SELECT COUNT(*) AS `__count`
 # NOTE every time you execute this function a duplicate student will be created with a different primary key number
 def problem_five(request):
 
+  Student.objects.create(first_name = 'Kyle', last_name = 'Harwood', year = 2022, gpa = 3)
 
-
-    return complete(request)
+  return complete(request)
 
 
 # Supporting Query Method Documentation:
