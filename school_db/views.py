@@ -1,5 +1,7 @@
 from itertools import count
+from os import remove
 from turtle import update
+from typing import Set
 from django.shortcuts import render
 from django.db.models import Count
 from django.core.exceptions import ObjectDoesNotExist
@@ -17,7 +19,8 @@ def example_solution(request):
   students = Student.objects.all()
 
   for student in students:
-      print(f'First Name: {student.first_name} Last Name: {student.last_name} GPA: {student.gpa}')
+
+      print(f'First Name: {student.first_name} Last Name: {student.last_name} GPA: {student.gpa} Student ID: {student.id}')
 
   return complete(request)
 
@@ -266,6 +269,15 @@ def problem_five(request):
 
   Student.objects.create(first_name = 'Kyle', last_name = 'Harwood', year = 2022, gpa = 3)
 
+  students = Student.objects.filter(id = 11)
+
+  for student in students:
+
+    print(f'Student ID: {student.id}')
+    print(f'Full Name: {student.first_name} {student.last_name}')
+    print(f'Year: {student.year}')
+    print(f'GPA: {student.gpa}')
+
   return complete(request)
 
 
@@ -358,10 +370,10 @@ def problem_seven(request):
     # Make sure to set this equal to the primary key of the row you just created!
 
 
-    Student.objects.filter(id = 11).delete()
+    Student.objects.filter(id = 12).delete()
 
     try:
-        student = Student.objects.get(pk=11)
+        student = Student.objects.get(pk=12)
     except ObjectDoesNotExist:
         print('Great! It failed and couldnt find the object because we deleted it!')
 
@@ -416,9 +428,51 @@ SELECT `school_db_student`.`id`,
 # Print out the instructors full name and number of courses to the console
 def bonus_problem(request):
 
+  course_instructor_id_list = []
+
+  courses = Course.objects.all()
+
+  for course in courses:
+
+    course_instructor_id_list.append(course.instructor_id)
+
+  instructor_id_list = []
+
+  instructor_id_list_solo = []
+
+  instructors = Instructor.objects.all()
+
+  for instructor in instructors:
+
+    instructor_id_list.append(instructor.id)
+    instructor_id_list_solo.append(instructor.id)
+
+  for value in instructor_id_list:
+
+    course_instructor_id_list.remove(value)
+
+  for value in course_instructor_id_list:
+
+    instructor_id_list_solo.remove(value)
+
+  for value in instructor_id_list_solo:
+
+    instructors = Instructor.objects.filter(id = value)
+
+    for instructor in instructors:
+
+      print(f'Full Name: {instructor.first_name} {instructor.last_name}')
+
+  
 
 
-    return complete(request)
+
+  
+
+
+  
+
+  return complete(request)
 
 
 # Supporting Query Method Documentation:
