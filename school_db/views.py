@@ -12,13 +12,12 @@ from .const_data import view_information
 # Example solution:
 def example_solution(request):
 
-    students = Student.objects.all()
+  students = Student.objects.all()
 
-    for student in students:
-        print(f'First Name: {student.first_name} Last Name: {student.last_name} GPA: {student.gpa}')
+  for student in students:
+      print(f'First Name: {student.first_name} Last Name: {student.last_name} GPA: {student.gpa}')
 
-
-    return complete(request)
+  return complete(request)
 
 
 # Supporting Query Method Documentation:
@@ -106,9 +105,6 @@ def problem_two(request):
 
   instructors = Instructor.objects.filter(hire_date__lt='2010-01-01').order_by('-hire_date')
 
-  for instructor in instructors:
-
-    print(f'Full Name: {instructor.first_name} {instructor.last_name}, Hire Date: {instructor.hire_date}')
 
   return complete(request)
 
